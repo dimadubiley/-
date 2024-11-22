@@ -14,52 +14,104 @@ settings_folder = "C:\\Rodger"
 settings_file = os.path.join(settings_folder, "settings.json")
 
 # Функции для работы с интернет-ресурсами
-def discordInterner(icon, item):
+def discordInterner():
     webbrowser.open("https://discord.com/app")
 
-def instagramInterner(icon, item):
+def instagramInterner():
     webbrowser.open("https://www.instagram.com")
 
-def steamInternet(icon, item):
+def steamInternet():
     webbrowser.open("https://store.steampowered.com")
 
-def telegramInterner(icon, item):
+def telegramInterner():
     webbrowser.open("https://web.telegram.org/a/")
 
-def tikTokInterner(icon, item):
+def tikTokInterner():
     webbrowser.open("https://www.tiktok.com/")
 
-def twitchInterner(icon, item):
+def twitchInterner():
     webbrowser.open("https://www.twitch.tv")
 
-def youTubeInterner(icon, item):
+def youTubeInterner():
     webbrowser.open("https://www.youtube.com")
 
 # Функции для работы с Google сервисами
-def googleDisk(icon, item):
+def googleDisk():
     webbrowser.open("https://drive.google.com/drive/")
 
-def google(icon, item):
+def google():
     webbrowser.open("https://www.google.com")
 
-def googleGmail(icon, item):
+def googleGmail():
     webbrowser.open("https://mail.google.com")
 
-def googlePhoto(icon, item):
+def googlePhoto():
     webbrowser.open("https://photos.google.com")
 
-def googleTranstale(icon, item):
+def googleTranstale():
     webbrowser.open("https://translate.google.com")
 
 # Функции для работы с AI сервисами
-def chatGPT(icon, item):
+def chatGPT():
     webbrowser.open("https://chat.openai.com")
 
-def copilot(icon, item):
+def copilot():
     webbrowser.open("https://copilot.microsoft.com")
 
-def leonardo(icon, item):
+def leonardo():
     webbrowser.open("https://app.leonardo.ai")
+
+
+#Разное
+def catk():
+    import tkinter as tk
+    from tkinter import messagebox
+
+    def on_click(button_text):
+        if button_text == "=":
+            try:
+                result = eval(entry.get())
+                entry.delete(0, tk.END)
+                entry.insert(tk.END, str(result))
+            except Exception as e:
+                messagebox.showerror("Ошибка", "Неверное выражение!")
+        elif button_text == "C":
+            entry.delete(0, tk.END)
+        else:
+            entry.insert(tk.END, button_text)
+
+    # Создание главного окна
+    root = tk.Tk()
+    root.title("Калькулятор")
+    root.resizable(False, False)
+
+    # Поле ввода
+    entry = tk.Entry(root, width=20, font=("Arial", 18), justify="right")
+    entry.grid(row=0, column=0, columnspan=4, padx=10, pady=10)
+
+    # Кнопки калькулятора
+    buttons = [
+        "7", "8", "9", "+",
+        "4", "5", "6", "-",
+        "1", "2", "3", "*",
+        "C", "0", "=", "/"
+    ]
+
+    # Создание кнопок
+    row = 1
+    col = 0
+    for button_text in buttons:
+        button = tk.Button(root, text=button_text, font=("Arial", 18), width=5, height=2,
+                           command=lambda bt=button_text: on_click(bt))
+        button.grid(row=row, column=col, padx=5, pady=5)
+        col += 1
+        if col > 3:
+            col = 0
+            row += 1
+
+    # Запуск главного цикла
+    root.mainloop()
+
 
 """
 def ThAT(icon, item):
@@ -131,6 +183,7 @@ def build_menu_with_ip():
         MenuItem("----------------------", lambda icon, item: None, enabled=False),
         MenuItem(ip_item_text, lambda icon, item: None, enabled=False),
         MenuItem("Открыть в интернете:", workOnInternet),
+        MenuItem("Разное", more),
         MenuItem("Настройки", settinks),
         MenuItem("Выход", lambda icon, item: icon.stop())
     )
@@ -174,6 +227,11 @@ def toggle_ip_visibility(icon, item):
 settinks = Menu(
     MenuItem("Скрыть/Показать IP", toggle_ip_visibility),
     #MenuItem("О чем программа?", ThAT),
+)
+
+#Меню для разного
+more = Menu(
+    MenuItem("Калькулятор", catk),
 )
 
 # Загрузка настроек при старте
